@@ -1,24 +1,26 @@
 package gitstructs
 
 import (
+	"bytes"
 	"strconv"
 
 	"github.com/mirito333/go-mygit/utils"
 )
 
 type Blob struct {
-	size    int
-	content string
-	hex     string
+	Size       int
+	Content    string
+	Hex        string
+	Compressed bytes.Buffer
 }
 
-func CreateBlob(size int, content string) Blob {
+func CreateBlob(size int, content string) (Blob,error){
 	format_content := "blob " + strconv.Itoa(size) + "\\0" + content
 	hex := utils.Sha1(format_content)
-	
-	return Blob{size, content, hex}
+	compressed := utils.EncodeZlib(format_content)
+	return Blob{size, content, hex, compressed}, nil
 }
 
 func (b *Blob) String() string {
-	return strconv.Itoa(b.size) + "," + b.content
+	return strconv.Itoa(b.Size) + "," + b.Content
 }
