@@ -12,7 +12,7 @@ import (
 
 // hashObjectCmd represents the hashObject command
 var hashObjectCmd = &cobra.Command{
-	Use:   "hash_object",
+	Use:   "hash-object",
 	Short: "object作るよ",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
