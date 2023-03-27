@@ -14,7 +14,7 @@ func CreateHashObject(path string) gitstructs.Blob {
 }
 
 func SaveHashObject(blob gitstructs.Blob) error {
-	git_path := ".go-mygit/objects/"
+	git_path := "./.go-mygit/objects/"
 	object_path := git_path + blob.Hex
 	os.WriteFile(object_path, blob.Compressed.Bytes(), 0644)
 	return nil

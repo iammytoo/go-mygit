@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
-	plumbing.CreateTree()
+	tree := plumbing.CreateTree()
+	plumbing.SaveTree(&tree)
 	cmd.Execute()
 }

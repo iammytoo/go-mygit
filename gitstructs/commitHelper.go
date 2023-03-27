@@ -1,5 +1,7 @@
 package gitstructs
 
+import "os"
+
 type CommitHelper struct {
 	Hash        string
 	Index       []Index
@@ -12,14 +14,18 @@ func CreateCommitHelper() CommitHelper {
 }
 
 func (c *CommitHelper) CreateCurrentTree() {
-	root_tree := WriteTree(c.Index, 1,"/")
+	root_tree := WriteTree(c.Index, 1, "/")
 	c.CurrentTree = root_tree
 }
 
-func(c *CommitHelper) ReadPreTree() {
-
+func (c *CommitHelper) ReadPreTree(refPath string) {
+	refHash, _ := os.ReadFile(refPath)
+	pre_tree := ReadTree(string(refHash), "/")
+	c.ParentTree = pre_tree
 }
 
 func (c *CommitHelper) CompareTree() Tree {
-	return Tree{}
+	tree := c.ParentTree
+	c.CurrentTree.Compare(&tree)
+	return tree
 }
