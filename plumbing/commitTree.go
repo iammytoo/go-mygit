@@ -16,7 +16,7 @@ func CommitTree(treeHash string, message string) string {
 	hash := utils.Sha1(commit)
 	git_path := "./.go-mygit/objects/"
 	object_path := git_path + hash
-	by := utils.EncodeZlib(content)
+	by := utils.EncodeZlib(commit)
 	os.WriteFile(object_path, by.Bytes(), 0644)
 	return hash
 }

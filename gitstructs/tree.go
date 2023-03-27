@@ -120,6 +120,21 @@ func (t *Tree) findBlob(path string) (bool, *Blob) {
 	return false, nil
 }
 
+func (t *Tree) ContainBlob(path string, depth int) bool {
+	splited_path := strings.Split(path, "/")
+	if len(splited_path) == depth {
+		f, _ := t.findBlob(path)
+		return f
+	} else {
+		f, c := t.findChild(splited_path[depth-1])
+		if f {
+			return c.ContainBlob(path, depth+1)
+		} else {
+			return f
+		}
+	}
+}
+
 func (t *Tree) String() string {
 	res := "tree : " + t.Name + "\n"
 	for _, c := range t.Child {

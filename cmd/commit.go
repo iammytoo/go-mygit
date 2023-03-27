@@ -24,5 +24,5 @@ var commitCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(commitCmd)
-	hashObjectCmd.Flags().StringP("message", "m", "commit!", "コミットメッセージ")
+	commitCmd.Flags().StringP("message", "m", "commit!", "コミットメッセージ")
 }

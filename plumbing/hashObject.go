@@ -10,6 +10,14 @@ func CreateHashObject(path string) gitstructs.Blob {
 	content_byte, _ := os.ReadFile(path)
 	content := string(content_byte)
 	blob, _ := gitstructs.CreateBlob(len(content), content)
+	refPath := "./.go-mygit/refs/main"
+	refHash, _ := os.ReadFile(refPath)
+	pre_tree := gitstructs.ReadTree(string(refHash), "/")
+	if pre_tree.ContainBlob(path, 1) {
+		blob.Status = "change"
+	} else {
+		blob.Status = "create"
+	}
 	return blob
 }
 

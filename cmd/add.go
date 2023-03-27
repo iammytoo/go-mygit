@@ -19,7 +19,7 @@ var addCmd = &cobra.Command{
 		if args[0] != "" {
 			blob := plumbing.CreateHashObject(args[0])
 			plumbing.SaveHashObject(blob)
-			plumbing.UpdateIndex(args[0],blob,"initial")
+			plumbing.UpdateIndex(args[0],blob)
 		} else {
 			fmt.Println("path指定してくれ")
 		}
