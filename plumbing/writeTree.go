@@ -1,7 +1,6 @@
 package plumbing
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 
@@ -19,14 +18,13 @@ func CreateTree() gitstructs.Tree {
 }
 
 func SaveTree(tree *gitstructs.Tree) error {
-	fmt.Println(tree.String())
 	inner := ""
 	for _, c := range tree.Child {
 		SaveTree(&c)
 		inner += "tree " + c.Name + " " + c.Hash + "\n"
 	}
 	for _, b := range tree.Blob {
-		if b.Status == "remove"{
+		if b.Status == "remove" {
 			continue
 		}
 		inner += "blob " + b.Path + " " + b.Hex + "\n"
